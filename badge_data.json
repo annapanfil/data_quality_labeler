@@ -1,4 +1,1 @@
-{
-    "missing_percentage": 0.1,
-    "most_missing_column": 0.1
-}
+{"missing_percentage": 0.1,"most_missing_column": 1}
