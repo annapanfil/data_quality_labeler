@@ -47,6 +47,21 @@ class FakeDataset:
         self.data.iloc[self.data.sample(frac=outlier_percentage).index, column_no] = outliers
                 
         return self 
+    
+    def add_dominated_string_column(self, colname="gender", dominated_percentage=0.9):
+        dataset_size = self.data.shape[0]
+        column = ["F"] * int(dataset_size * dominated_percentage) + ["M"] * (dataset_size - int(dataset_size * dominated_percentage))
+        random.shuffle(column)
+        self.data[colname] = column
+
+        return self
+    
+    def add_mishmashed_case(self, colname="category", mishmashed_percentage=0.1):
+        column_no = self.data.columns.get_loc(colname)
+        data_sample = self.data.sample(frac=mishmashed_percentage).index
+        self.data.iloc[data_sample, column_no] = self.data.iloc[data_sample, column_no].map(lambda x: x.lower() if not pd.isna(x) else x)
+
+        return self
 
     def to_csv(self, filename):
         self.data.to_csv(filename, index=False)
@@ -65,6 +80,8 @@ if __name__ == "__main__":
     filename = 'dataset.csv'
 
     dataset = FakeDataset(dataset_size = 100)\
+            .add_dominated_string_column(dominated_percentage=0.9)\
+            .add_mishmashed_case(mishmashed_percentage=0.1)\
             .add_outliers_above(outlier_percentage = 0.1)\
             .add_duplicates(duplicate_percentage = 0.15)\
             .add_missing(missing_percentage = 0.1)\
