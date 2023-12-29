@@ -1,4 +1,6 @@
 {
     "missing_percentage": 0.1,
-    "most_missing_column": 0.1
+    "most_missing_column": 0.1,
+    "outlier_percentage": 0.0,
+    "duplicate_proportion": 0.0
 }
