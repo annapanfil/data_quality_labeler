@@ -1,11 +1,14 @@
 {
-    "missing_percentage": 0.10326086956521739,
+    "missing_percentage": 0.10434782608695652,
     "most_missing_column": 0.10434782608695652,
     "duplication_percentage": 0.017391304347826087,
-    "outliers_percentage": 0.013100189035916825,
-    "most_outliers_column": 0.10434782608695652,
+    "outliers_percentage": 0.01847826086956522,
+    "most_outliers_column": 0.09565217391304348,
     "unique_columns": 0.75,
     "dominated_columns": 0.125,
     "max_mishmashed_case": 0.75,
-    "dataset_quality_score": 0.7744136510937079
+    "dataset_quality_score": 0.7739518633540372,
+    "outlier_percentage": 0.09565217391304348,
+    "duplicate_proportion": 0,
+    "documentation_detail": 0.8333333333333334
 }
