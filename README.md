@@ -11,3 +11,14 @@ Includes also fake dataset creator.
 
 
 Badges created thanks to [shields.io](https://shields.io/badges/dynamic-json-badge)
+
+## Run app
+To run this app, copy and paste below commends. 
+```bash
+$ git clone https://github.com/annapanfil/data_quality_labeler/tree/main
+$ git checkout web_app
+$ conda conda create --name your_env_name
+$ conda activate your_env_name
+$ pip install -r requirements.txt
+$ stremlit run main.py  
+```
