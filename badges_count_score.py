@@ -2,7 +2,7 @@ from dataset_creator import MISSING_SYMBOLS
 import pandas as pd
 import numpy as np
 from search_strings import *
-# from scipy.stats import chi2_contingency
+from scipy.stats import chi2_contingency
 
 
 def count_documentation_detail(doc_dest: str):
@@ -26,9 +26,9 @@ def count_correlation_badges_categorical(data: pd.DataFrame):
     for i, col in enumerate(categorical_data.columns):
         for j, col2 in enumerate(categorical_data.columns):
             if i != j:
-                # CrosstabResult=pd.crosstab(index=categorical_data[col],columns=categorical_data[col2])
-                # chi2, p, dof, expected = chi2_contingency(CrosstabResult)
-                p=0
+                CrosstabResult=pd.crosstab(index=categorical_data[col],columns=categorical_data[col2])
+                chi2, p, dof, expected = chi2_contingency(CrosstabResult)
+                # p=0
                 alpha = 0.05
                 if p <= alpha:
                     dependent += 1
@@ -82,8 +82,9 @@ def count_dimminated_and_unique_columns(data: pd.DataFrame):
     dominated_columns, unique_columns= 0, 0
     for col in data.columns:  
         if len(data[col].unique())/len(data[col]) > 0.5: # column with rather unique values
-            unique_columns += 1      
-        if data[col].value_counts().max()/data.shape[0] > 0.8: # dominant category
+            unique_columns += 1     
+        # smaller threshold 
+        if data[col].value_counts().max()/data.shape[0] >= 0.8: # dominant category
             dominated_columns += 1
             
     dominated_columns /= len(data.columns)
