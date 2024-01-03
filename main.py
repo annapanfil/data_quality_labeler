@@ -48,7 +48,7 @@ def show_badges(dataset_scores: dict):
 
     st.markdown('## Total dataset quality score')
     dataset_final_quality_score = display_sliders()
-    centered_image_html = f'<div style="display: flex; justify-content: center;"><img src="https://img.shields.io/badge/{"dataset_quality_score"}-{round(dataset_final_quality_score, 2):.2}-{"red" if dataset_final_quality_score < 0.5 else "blue"}" width="200" height="40"></div>'
+    centered_image_html = f'<div style="display: flex; justify-content: center;"><img src="https://img.shields.io/badge/{"dataset_quality_score"}-{round(dataset_final_quality_score, 2):.2}-{"red" if dataset_final_quality_score < 0.5 else "blue"}" width="250" height="40"></div>'
     st.markdown(centered_image_html, unsafe_allow_html=True)
 
 

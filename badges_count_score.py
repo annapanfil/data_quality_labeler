@@ -28,8 +28,7 @@ def count_correlation_badges_categorical(data: pd.DataFrame):
             if i != j:
                 CrosstabResult=pd.crosstab(index=categorical_data[col],columns=categorical_data[col2])
                 chi2, p, dof, expected = chi2_contingency(CrosstabResult)
-                # p=0
-                alpha = 0.05
+                alpha = 0.01
                 if p <= alpha:
                     dependent += 1
                 else:
