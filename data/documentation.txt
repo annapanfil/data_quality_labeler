@@ -1,0 +1,19 @@
+definitions
+
+Variable
+formatting
+constraints
+
+Allowable ranges
+
+Moment, place
+and author of
+data acquisition
+
+Inconsistent
+combinations of
+values (rules)
+
+Information
+about significant
+derived variables
