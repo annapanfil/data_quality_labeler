@@ -1,6 +1,51 @@
 from dataset_creator import MISSING_SYMBOLS
 import pandas as pd
 import numpy as np
+from search_strings import *
+# from scipy.stats import chi2_contingency
+
+
+def count_documentation_detail(doc_dest: str):
+    if doc_dest is None:
+        return 1
+    
+    content = doc_dest.read().decode("utf-8").lower() # Lowercase to avoid inconsistensies
+    context = 0
+    for search_string in search_strings:
+        for i in search_string:
+            if i in content:
+                context = context + 1
+                break
+    
+    return 1 - (context / len(search_strings))
+
+
+def count_correlation_badges_categorical(data: pd.DataFrame):
+    categorical_data = data.select_dtypes(include=['object', 'category', 'string'])    
+    dependent, independent = 0, 0
+    for i, col in enumerate(categorical_data.columns):
+        for j, col2 in enumerate(categorical_data.columns):
+            if i != j:
+                # CrosstabResult=pd.crosstab(index=categorical_data[col],columns=categorical_data[col2])
+                # chi2, p, dof, expected = chi2_contingency(CrosstabResult)
+                p=0
+                alpha = 0.05
+                if p <= alpha:
+                    dependent += 1
+                else:
+                    independent += 1
+    
+    return 1 - independent/(independent+dependent)  # 1 the worst, 0 the best
+
+
+def count_correlation_badges(data: pd.DataFrame):
+    # Check correlation between columns
+    # We check correlation between columns and if it's higher than 0.8, we mark it as a bad thing
+    numeric_data = data.select_dtypes(include=['number'])
+    corr = numeric_data.corr()
+    np.fill_diagonal(corr.values, 0)
+    count_of_highly_correlated_columns = (abs(corr) > 0.8).sum().sum()
+    return count_of_highly_correlated_columns / len(numeric_data.columns) # 1 the worst, 0 theh best 
 
 
 def count_outliers_percentage_and_most_outliers_column(data: pd.DataFrame):
@@ -59,17 +104,7 @@ def count_mishmashed(data: pd.DataFrame):
     return max(mishmashed_cases)
 
 
-def count_score(dataset_scores: pd.DataFrame,
-    weights = {
-        "missing_percentage": 10, # many missing values is difficult to handle
-        "most_missing_column": 2, # if 1 we had a column with huge amount of missing values, we'd have to drop it
-        "duplication_percentage": 4, # many duplicates means less data
-        "outliers_percentage": 2, # outliers may be removed or cause problems with predictions
-        "most_outliers_column": 1,
-        "unique_columns": 5, # if all columns are unique, we can't do much with it
-        "dominated_columns": 3, # if a column has one dominant category, it may be not very useful
-        "max_mishmashed_case": 1 # our data may be dirty and require a lot of cleaning
-    })-> int:
+def count_score(dataset_scores: pd.DataFrame, weights)-> int:
 
     final_score = 0
     for name, score in dataset_scores.items():
