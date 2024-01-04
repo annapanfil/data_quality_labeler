@@ -13,9 +13,9 @@ weights = {
         "unique_columns": 5, # if all columns are unique, we can't do much with it
         "dominated_columns": 3, # if a column has one dominant category, it may be not very useful
         "max_mishmashed_case": 1, # our data may be dirty and require a lot of cleaning
-        'correlation_numerical' : 1,
+        'correlation_numerical' : 4,
         'correlation_categorical' : 1,
-        'documentation_detail' :1
+        'documentation_detail' : 2
     }
 
 def count_scores(data: pd.DataFrame, document: str):
