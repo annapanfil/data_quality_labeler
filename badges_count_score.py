@@ -16,7 +16,8 @@ def count_documentation_detail(doc_dest: str):
             if i in content:
                 context = context + 1
                 break
-    
+    if len(search_strings) == 0:
+        return 1
     return 1 - (context / len(search_strings))
 
 
@@ -33,6 +34,8 @@ def count_correlation_badges_categorical(data: pd.DataFrame):
                     dependent += 1
                 else:
                     independent += 1
+    if independent+dependent == 0:
+        return 1
     
     return 1 - independent/(independent+dependent)  # 1 the worst, 0 the best
 
@@ -44,6 +47,8 @@ def count_correlation_badges(data: pd.DataFrame):
     corr = numeric_data.corr()
     np.fill_diagonal(corr.values, 0)
     count_of_highly_correlated_columns = (abs(corr) > 0.8).sum().sum()
+    if len(numeric_data.columns) == 0:
+        return 1
     return count_of_highly_correlated_columns / 2*len(numeric_data.columns) # 1 the worst, 0 theh best 
 
 
@@ -72,6 +77,10 @@ def count_outliers_percentage_and_most_outliers_column(data: pd.DataFrame):
                 (rare := data[col].value_counts().min()/data.shape[0]) < 0.05: # rare category
             outliers_nums.append(rare)
 
+    if data.size == 0:
+        return 1, 1
+    if data.shape[0] == 0:
+        return 1, 1
     return sum(outliers_nums)/data.size, max(outliers_nums)/data.shape[0]
 
 
@@ -86,6 +95,9 @@ def count_dimminated_and_unique_columns(data: pd.DataFrame):
         if data[col].value_counts().max()/data.shape[0] >= 0.8: # dominant category
             dominated_columns += 1
             
+    if len(data.columns) == 0:
+        return 1, 1
+    
     dominated_columns /= len(data.columns)
     unique_columns /= len(data.columns)
 
@@ -101,6 +113,8 @@ def count_mishmashed(data: pd.DataFrame):
         truly_unique = len(data[col].map(lambda x: x.lower() if not pd.isna(x) else x).unique())
 
         mishmashed_cases.append((unique_in_data - truly_unique)/truly_unique)
+    if len(mishmashed_cases) == 0:
+        return 1
     return max(mishmashed_cases)
 
 
