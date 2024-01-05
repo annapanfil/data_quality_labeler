@@ -44,7 +44,7 @@ def count_correlation_badges(data: pd.DataFrame):
     corr = numeric_data.corr()
     np.fill_diagonal(corr.values, 0)
     count_of_highly_correlated_columns = (abs(corr) > 0.8).sum().sum()
-    return count_of_highly_correlated_columns / len(numeric_data.columns) # 1 the worst, 0 theh best 
+    return count_of_highly_correlated_columns / 2*len(numeric_data.columns) # 1 the worst, 0 theh best 
 
 
 def count_outliers_percentage_and_most_outliers_column(data: pd.DataFrame):
@@ -69,7 +69,7 @@ def count_outliers_percentage_and_most_outliers_column(data: pd.DataFrame):
     # For string columns we look for rare values (less than 5% of the observations)    
     for col in string_cols:
         if not len(data[col].unique())/len(data[col]) > 0.5 and\
-                (rare := data["category"].value_counts().min()/data.shape[0]) < 0.05: # rare category
+                (rare := data[col].value_counts().min()/data.shape[0]) < 0.05: # rare category
             outliers_nums.append(rare)
 
     return sum(outliers_nums)/data.size, max(outliers_nums)/data.shape[0]
@@ -97,8 +97,8 @@ def count_mishmashed(data: pd.DataFrame):
     string_cols = data.select_dtypes(include=["string", "object"]).columns
     mishmashed_cases = []
     for col in string_cols:
-        unique_in_data = len(data["category"].unique())
-        truly_unique = len(data["category"].map(lambda x: x.lower() if not pd.isna(x) else x).unique())
+        unique_in_data = len(data[col].unique())
+        truly_unique = len(data[col].map(lambda x: x.lower() if not pd.isna(x) else x).unique())
 
         mishmashed_cases.append((unique_in_data - truly_unique)/truly_unique)
     return max(mishmashed_cases)
