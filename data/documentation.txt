@@ -1,19 +1,11 @@
-definitions
+Variable definitions: definition1, definition2
 
-Variable
-formatting
-constraints
+Variable formatting constraints: none
 
-Allowable ranges
+Allowable ranges: for results 1 - [0:100]
 
-Moment, place
-and author of
-data acquisition
+Moment, place and author of data acquisition: 1900-01-01, Valencia, Jeff Jefferson
 
-Inconsistent
-combinations of
-values (rules)
+Inconsistent combinations of values (rules): none
 
-Information
-about significant
-derived variables
+Information about significant derived variables: none
