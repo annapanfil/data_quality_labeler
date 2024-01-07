@@ -113,7 +113,7 @@ def count_mishmashed(data: pd.DataFrame):
         unique_in_data = len(data[col].unique())
         truly_unique = len(data[col].map(lambda x: x.lower() if not pd.isna(x) else x).unique())
 
-        mishmashed_cases.append((unique_in_data - truly_unique)/truly_unique)
+        mishmashed_cases.append((unique_in_data - truly_unique)/unique_in_data)
     if len(mishmashed_cases) == 0:
         return 0
     return max(mishmashed_cases)
@@ -134,8 +134,3 @@ def data_preparation(data: pd.DataFrame):
     data.replace(MISSING_SYMBOLS, np.nan, inplace=True)
     data = data._convert(numeric=True, datetime=True).convert_dtypes()
     return data
-
-
-df = pd.read_csv('iris.csv')
-df = data_preparation(df)
-count_correlation_badges(df)
