@@ -15,7 +15,7 @@ weights = {
         "max_mishmashed_case": 1, # our data may be dirty and require a lot of cleaning
         'correlation_numerical' : 4,
         'correlation_categorical' : 1,
-        'documentation_detail' : 2
+        'missing documentation' : 2
     }
 
 def count_scores(data: pd.DataFrame, document: str):
@@ -28,7 +28,7 @@ def count_scores(data: pd.DataFrame, document: str):
     dataset_scores["max_mishmashed_case"] = count_mishmashed(data)
     dataset_scores["correlation_numerical"] = count_correlation_badges(data)
     dataset_scores["correlation_categorical"] = count_correlation_badges_categorical(data)
-    dataset_scores["documentation_detail"] = count_documentation_detail(document)
+    dataset_scores["missing documentation"] = count_documentation_detail(document)
 
     return dataset_scores, count_score(dataset_scores, weights=weights)
 
