@@ -49,7 +49,8 @@ def count_correlation_badges(data: pd.DataFrame):
     count_of_highly_correlated_columns = (abs(corr) > 0.8).sum().sum()
     if len(numeric_data.columns) == 0:
         return 1
-    return count_of_highly_correlated_columns / 2*len(numeric_data.columns) # 1 the worst, 0 theh best 
+    return count_of_highly_correlated_columns / (2*len(numeric_data.columns)) # 1 the worst, 0 theh best 
+
 
 
 def count_outliers_percentage_and_most_outliers_column(data: pd.DataFrame):
@@ -114,7 +115,7 @@ def count_mishmashed(data: pd.DataFrame):
 
         mishmashed_cases.append((unique_in_data - truly_unique)/truly_unique)
     if len(mishmashed_cases) == 0:
-        return 1
+        return 0
     return max(mishmashed_cases)
 
 
@@ -133,3 +134,8 @@ def data_preparation(data: pd.DataFrame):
     data.replace(MISSING_SYMBOLS, np.nan, inplace=True)
     data = data._convert(numeric=True, datetime=True).convert_dtypes()
     return data
+
+
+df = pd.read_csv('iris.csv')
+df = data_preparation(df)
+count_correlation_badges(df)
