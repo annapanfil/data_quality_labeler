@@ -62,7 +62,7 @@ def display_sliders(higher_scores: dict, higher_weights: dict):
 
 
 def show_badges(higher_scores: dict, higher_weights: dict):
-    st.markdown("## Certin badge scores")
+    st.markdown("## Certain badge scores")
     for badge_name, budge_score in higher_scores.items():
         st.markdown(f"![DQ badge](https://img.shields.io/badge/{badge_name}-{round(budge_score, 2)}-{'red' if budge_score < 0.5 else 'blue'})")
 
