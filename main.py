@@ -15,7 +15,7 @@ weights = {
         "max_mishmashed_case": 1, # our data may be dirty and require a lot of cleaning
         'correlation_numerical' : 4,
         'correlation_categorical' : 1,
-        'missing documentation' : 2
+        'missing_documentation' : 2
     }
 
 def count_scores(data: pd.DataFrame, document: str):
@@ -28,7 +28,7 @@ def count_scores(data: pd.DataFrame, document: str):
     dataset_scores["max_mishmashed_case"] = count_mishmashed(data)
     dataset_scores["correlation_numerical"] = count_correlation_badges(data)
     dataset_scores["correlation_categorical"] = count_correlation_badges_categorical(data)
-    dataset_scores["missing documentation"] = count_documentation_detail(document)
+    dataset_scores["missing_documentation"] = count_documentation_detail(document)
 
     return dataset_scores, count_score(dataset_scores, weights=weights)
 
@@ -42,7 +42,7 @@ def display_sliders():
 
 
 def show_badges(dataset_scores: dict):
-    st.markdown("## Certin badge scores")
+    st.markdown("## Certain badge scores")
     for badge_name, budge_score in dataset_scores.items():
         st.markdown(f"![DQ badge](https://img.shields.io/badge/{badge_name}-{round(budge_score, 2)}-{'red' if budge_score > 0.5 else 'blue'})")
 
