@@ -35,7 +35,7 @@ class FakeDataset:
         return self
     
     def add_duplicates(self, duplicate_percentage):
-        self.data = self.data.append(self.data.iloc[self.data.sample(frac=duplicate_percentage).index, :])
+        self.data = self.data._append(self.data.iloc[self.data.sample(frac=duplicate_percentage).index, :])
 
         return self
     
@@ -85,6 +85,6 @@ if __name__ == "__main__":
             .add_outliers_above(outlier_percentage = 0.1)\
             .add_duplicates(duplicate_percentage = 0.15)\
             .add_missing(missing_percentage = 0.1)\
-            # .to_csv(filename)
+            .to_csv(filename)
 
-    print(dataset.data.head())
+    # print(dataset.data.head())

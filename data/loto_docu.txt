@@ -1,0 +1,5 @@
+Column Data Label Data Type Data Description
+A Draw Date Date Draw Date
+B Winning Numbers Text Winning Numbers
+C Multiplier Text Multiplier (discontinued 3/14/2012)
+Data Dictionary for Powerball Winning Numbers
