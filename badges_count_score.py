@@ -119,13 +119,15 @@ def count_mishmashed(data: pd.DataFrame):
     return max(mishmashed_cases)
 
 
-def count_score(dataset_scores: pd.DataFrame, weights)-> int:
+def count_score(dataset_scores: pd.DataFrame, weights: dict)-> int:
 
     final_score = 0
+    weights_sum = 0
     for name, score in dataset_scores.items():
         final_score += score * weights[name]
+        weights_sum += weights[name]
 
-    final_score /= sum(weights.values())
+    final_score /= weights_sum
     final_score = 1 - final_score # 1 is the best score, 0 – the worst
     return final_score
 
