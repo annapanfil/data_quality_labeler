@@ -1,5 +1,10 @@
 import pytest
 import pandas as pd
+import sys
+from pathlib import Path
+
+parent_dir = str(Path(__file__).resolve().parents[1])
+sys.path.append(parent_dir)
 from badges_count_score import count_documentation_detail, count_correlation_badges_categorical, count_correlation_badges
 from unittest.mock import MagicMock, patch
 
